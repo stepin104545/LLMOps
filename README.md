@@ -7,12 +7,14 @@ This project downloads a Gemma 4 GGUF model from Hugging Face into a local cache
 ```text
 .
 |-- bin/
+|   |-- load_test_10_tps.sh
 |   `-- test_api.sh
 |-- models/
 |-- src/gemma_local_api/
 |   |-- cli.py
 |   |-- config.py
 |   |-- downloader.py
+|   |-- load_test.py
 |   `-- server.py
 |-- pyproject.toml
 `-- run_local_api.sh
@@ -94,6 +96,28 @@ curl http://127.0.0.1:8000/v1/chat/completions \
 Or run:
 
 ```bash
-chmod +x /Users/niranjankumarm/Documents/New\ project/bin/test_api.sh
-/Users/niranjankumarm/Documents/New\ project/bin/test_api.sh
+chmod +x /Users/niranjankumarm/Documents/LLMOps/bin/test_api.sh
+/Users/niranjankumarm/Documents/LLMOps/bin/test_api.sh
+```
+
+## 10 TPS load
+
+Send 10 requests per second to the local API for 10 seconds:
+
+```bash
+chmod +x /Users/niranjankumarm/Documents/LLMOps/bin/load_test_10_tps.sh
+/Users/niranjankumarm/Documents/LLMOps/bin/load_test_10_tps.sh
+```
+
+Run it for a different duration:
+
+```bash
+/Users/niranjankumarm/Documents/LLMOps/bin/load_test_10_tps.sh 30
+```
+
+Or use the Python entrypoint directly:
+
+```bash
+cd /Users/niranjankumarm/Documents/LLMOps
+PYTHONPATH=src /usr/bin/python3 -m gemma_local_api.load_test --tps 10 --duration 10
 ```
